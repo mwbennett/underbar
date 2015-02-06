@@ -102,7 +102,20 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+  _.uniq = function(array, isSorted, iterator) {
+    var uniqArray = [];
+    if (isSorted === true) {  
+      _.each(array, function(element) {
+        if (element != uniqArray[uniqArray.length - 1]) 
+          uniqArray.push(element);
+      })
+    } else {
+      _.each(array, function(element){
+        if (_.indexOf(uniqArray, element) === -1) 
+          uniqArray.push(element);
+      });
+    }
+    return uniqArray;
   };
 
 
