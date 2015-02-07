@@ -124,6 +124,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var result = [];
+    _.each(collection, function(x){
+      result.push(iterator(x));
+    })
+    return result;
   };
 
   /*
@@ -165,6 +170,13 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var iterate = function(array, func, total) {
+      _.each(array, function(element){
+        total = func(total, element);
+      })
+      return total;
+    };
+    return (accumulator === undefined ? iterate(collection.slice(1), iterator, collection[0]) : iterate(collection, iterator, accumulator))
   };
 
   // Determine if the array or object contains a given value (using `===`).
