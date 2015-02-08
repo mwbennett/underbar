@@ -208,6 +208,14 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator = iterator || _.identity;
+    var isFalse = function(element) {
+      return !(iterator(element));
+    };
+    if (_.every(collection, isFalse)) {
+      return false;
+    };
+    return true;
   };
 
 
